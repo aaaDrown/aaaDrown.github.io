@@ -44,6 +44,7 @@
     li { padding-left: 3px; margin-bottom: 10px; }
     li:last-child { margin-bottom: 0; }
     .publication-list li { margin-bottom: 19px; }
+    .paper-authors { display: block; }
     .paper-title { font-weight: bold; }
     .paper-detail { display: block; }
     .entry-list { list-style: none; padding-left: 0; }
@@ -86,7 +87,6 @@
         <a href="#biography">Biography</a>
         <a href="#interests">Research Interests</a>
         <a href="#publications">Publications</a>
-        <a href="#projects">Research Projects</a>
         <a href="#experience">Experience</a>
         <a href="#education">Education</a>
       </nav>
@@ -113,36 +113,21 @@
         <h2 id="publications-title">Selected Publications</h2>
         <ol class="publication-list">
           <li>
+            <span class="paper-authors"><strong>Shuheng Gao</strong>, Fan Guo, Yongkun Li, Ziye Yue, Yinlong Xu, and John C.S. Lui.</span>
             <span class="paper-title">gKSM: GPU Memory Deduplication at Driver Layer for Serverless LLM Inference.</span>
-            <span class="paper-detail">USENIX Annual Technical Conference (ATC), accepted. First author.</span>
+            <span class="paper-detail">Accepted to the 2026 ACM SIGOPS Annual Technical Conference (SIGOPS ATC 2026).</span>
           </li>
           <li>
+            <span class="paper-authors">Shijun Yang, <strong>Shuheng Gao</strong>, Chaomei Yan, Guoli Wei, and Yongkun Li.</span>
             <span class="paper-title">Token Write Amplification in LLM-Mediated State Stores.</span>
-            <span class="paper-detail">Second author.</span>
+            <span class="paper-detail">The 18th ACM Workshop on Hot Topics in Storage and File Systems (HotStorage 2026).</span>
           </li>
           <li>
+            <span class="paper-authors">Guangjie Xing, <strong>Shuheng Gao</strong>, Hua Wang, Ke Zhou, Yaodong Han, and Mengling Tao.</span>
             <span class="paper-title">VDMig: An Adaptive Virtual Disk Migration Scheme for Cloud Block Storage System.</span>
-            <span class="paper-detail">International Conference on Computer Design (ICCD). Second author.</span>
+            <span class="paper-detail">The 42nd IEEE International Conference on Computer Design (ICCD 2024).</span>
           </li>
         </ol>
-      </section>
-
-      <section id="projects" aria-labelledby="projects-title">
-        <h2 id="projects-title">Research Projects</h2>
-        <ul class="entry-list">
-          <li>
-            <span class="entry-title">GPU memory deduplication for serverless LLM inference</span> <span class="entry-date">(2025)</span>
-            <p>Designed a driver-layer framework for sharing GPU memory across inference instances using CUDA virtual memory management, NVLink, and copy-on-write. In a four-A100 evaluation, it reduced GPU memory use by about 50% and doubled throughput in a resource-constrained setting.</p>
-          </li>
-          <li>
-            <span class="entry-title">Hybrid inference for resource-constrained systems</span> <span class="entry-date">(2024–2025)</span>
-            <p>Built a hardware-aware prefill pipeline and CPU–GPU decode strategy on llama.cpp. End-to-end performance improved by up to 3.7 times compared with llama.cpp in the evaluated settings.</p>
-          </li>
-          <li>
-            <span class="entry-title">Cloud disk workload prediction and scheduling</span> <span class="entry-date">(2023–2024)</span>
-            <p>Studied cloud block storage write patterns and developed workload-aware scheduling strategies for periodic and bursty traffic.</p>
-          </li>
-        </ul>
       </section>
 
       <section id="experience" aria-labelledby="experience-title">
