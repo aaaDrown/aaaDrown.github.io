@@ -1,352 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090b0b">
-  <meta name="description" content="Shuheng Gao is a computer science researcher working on efficient AI inference, GPU memory systems, and cloud infrastructure.">
-  <title>Shuheng Gao — AI Infrastructure & Systems Research</title>
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Shuheng Gao's academic homepage: research in GPU memory systems, efficient LLM inference, and cloud infrastructure.">
+  <title>Shuheng Gao | Academic Homepage</title>
   <style>
-    :root {
-      color-scheme: dark;
-      --background: #090b0b;
-      --surface: #111515;
-      --surface-raised: #171c1b;
-      --line: #29312f;
-      --text: #f1f3ed;
-      --muted: #a7b0a9;
-      --dim: #77837b;
-      --accent: #c5f277;
-      --accent-soft: rgba(197, 242, 119, .11);
-      --max-width: 1160px;
-    }
-
+    :root { color-scheme: dark; }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: var(--background);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
+      background: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
     }
-    body::before {
-      position: fixed;
-      z-index: -1;
-      inset: 0;
-      background: radial-gradient(ellipse 48% 35% at 78% 3%, rgba(110, 139, 78, .12), transparent 78%);
-      content: "";
-      pointer-events: none;
-    }
-    ::selection { background: var(--accent); color: var(--background); }
-    a { color: inherit; text-decoration: none; }
-    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; border-radius: 3px; }
-    img { max-width: 100%; display: block; }
-    h1, h2, h3, p { margin-top: 0; }
-    .container { width: min(var(--max-width), calc(100% - 48px)); margin-inline: auto; }
-    .skip-link { position: absolute; top: -60px; left: 16px; z-index: 10; padding: 10px 16px; background: var(--accent); color: #0a0d09; }
+    a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+    a:hover { text-decoration-thickness: 2px; }
+    .page { width: min(100% - 48px, 980px); margin: 0 auto; padding: 45px 0 60px; }
+    .skip-link { position: absolute; left: 12px; top: -60px; background: #000; padding: 8px 12px; }
     .skip-link:focus { top: 12px; }
-
-    .site-header {
-      position: relative;
-      z-index: 2;
-      border-bottom: 1px solid var(--line);
-      background: rgba(9, 11, 11, .92);
-    }
-    .header-inner { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: .9rem; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap; }
-    .brand-mark { width: 29px; height: 29px; display: grid; place-items: center; border: 1px solid var(--accent); color: var(--accent); font-size: .75rem; letter-spacing: -.08em; }
-    .navigation { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: clamp(12px, 2.3vw, 34px); }
-    .navigation a { color: var(--muted); font-size: .78rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; transition: color .2s ease; }
-    .navigation a:hover, .navigation a[aria-current="page"] { color: var(--accent); }
-
-    .hero { padding-top: clamp(76px, 10vw, 142px); padding-bottom: clamp(90px, 10vw, 150px); }
-    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, .75fr); gap: clamp(48px, 8vw, 120px); align-items: center; }
-    .eyebrow, .section-kicker { display: inline-flex; align-items: center; gap: 12px; color: var(--accent); font-size: .72rem; font-weight: 750; letter-spacing: .18em; text-transform: uppercase; }
-    .eyebrow::before, .section-kicker::before { display: inline-block; width: 26px; height: 1px; background: currentColor; content: ""; }
-    h1 { max-width: 760px; margin: 29px 0 25px; font-size: clamp(3.6rem, 7vw, 7rem); font-weight: 650; letter-spacing: -.078em; line-height: .99; }
-    h1 em { color: var(--accent); font-style: normal; }
-    .hero-copy { max-width: 590px; color: var(--muted); font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.8; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
-    .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 14px; padding: 11px 18px; border: 1px solid var(--line); font-size: .84rem; font-weight: 700; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
-    .button:hover { transform: translateY(-2px); border-color: var(--accent); }
-    .button-primary { border-color: var(--accent); background: var(--accent); color: #0c1009; }
-    .button-primary:hover { background: #d5ffa0; }
-    .button-secondary { color: var(--text); }
-    .button svg { width: 16px; height: 16px; }
-    .portrait-wrap { position: relative; max-width: 360px; margin-inline: auto; }
-    .portrait-wrap::before { position: absolute; top: -18px; right: -18px; bottom: 18px; left: 18px; border: 1px solid #42513a; content: ""; }
-    .portrait { position: relative; overflow: hidden; border: 1px solid #30362e; background: #d4d8d4; }
-    .portrait img { width: 100%; aspect-ratio: 259 / 364; object-fit: cover; filter: grayscale(1) contrast(1.08); }
-    .portrait-caption { position: absolute; right: 0; bottom: 0; left: 0; padding: 42px 19px 17px; background: linear-gradient(transparent, rgba(3, 6, 5, .9)); font-size: .69rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
-    .portrait-caption span { color: var(--accent); }
-
-    .quick-facts { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #0d100f; }
-    .fact-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-    .fact { padding: 29px 30px 29px 0; }
-    .fact + .fact { padding-left: 32px; border-left: 1px solid var(--line); }
-    .fact strong { display: block; color: var(--accent); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 600; letter-spacing: -.06em; line-height: 1.2; }
-    .fact span { display: block; margin-top: 5px; color: var(--muted); font-size: .8rem; }
-
-    section.content-section { padding-block: clamp(84px, 10vw, 136px); scroll-margin-top: 24px; }
-    section.content-section + section.content-section { border-top: 1px solid var(--line); }
-    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 43px; }
-    .section-heading h2 { margin: 14px 0 0; font-size: clamp(2.3rem, 4.5vw, 4.3rem); font-weight: 600; letter-spacing: -.065em; line-height: 1.06; }
-    .section-note { max-width: 330px; margin-bottom: 4px; color: var(--muted); font-size: .94rem; }
-
-    .about-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(250px, .8fr); gap: clamp(35px, 7vw, 100px); }
-    .lead { max-width: 720px; color: #dfe4dc; font-size: clamp(1.25rem, 2.1vw, 1.65rem); line-height: 1.62; letter-spacing: -.02em; }
-    .about-text { max-width: 690px; color: var(--muted); font-size: .98rem; }
-    .detail-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-    .detail-list li { display: grid; grid-template-columns: 90px 1fr; gap: 12px; padding: 17px 0; border-bottom: 1px solid var(--line); font-size: .88rem; }
-    .detail-list span:first-child { color: var(--dim); }
-    .detail-list span:last-child { color: var(--text); }
-    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 27px; }
-    .skill-list span, .tags span { display: inline-block; padding: 5px 10px; border: 1px solid #34403a; color: #c9d2ca; font-size: .72rem; font-weight: 650; letter-spacing: .02em; }
-
-    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-    .project-card { display: flex; flex-direction: column; min-height: 325px; padding: clamp(25px, 3vw, 38px); border: 1px solid var(--line); background: var(--surface); transition: border-color .2s ease, transform .2s ease; }
-    .project-card:hover { border-color: #627653; transform: translateY(-3px); }
-    .project-card.featured { grid-row: span 2; background: linear-gradient(155deg, #1c2920 0%, #121815 45%, #101413 100%); }
-    .card-top { display: flex; justify-content: space-between; gap: 20px; color: var(--accent); font-size: .73rem; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
-    .card-number { color: var(--dim); }
-    .project-card h3 { margin: 36px 0 13px; font-size: clamp(1.6rem, 2.3vw, 2.3rem); font-weight: 600; letter-spacing: -.045em; line-height: 1.16; }
-    .project-card p { max-width: 515px; color: var(--muted); font-size: .95rem; }
-    .project-card .result { margin-top: auto; padding-top: 24px; color: #e0ebd5; font-size: .88rem; }
-    .project-card .result strong { color: var(--accent); font-weight: 700; }
-    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
-
-    .two-column { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(250px, .75fr); gap: clamp(42px, 8vw, 112px); }
-    .timeline { border-top: 1px solid var(--line); }
-    .timeline-item { display: grid; grid-template-columns: 135px 1fr; gap: 20px; padding: 25px 0; border-bottom: 1px solid var(--line); }
-    .timeline-date { color: var(--dim); font-size: .76rem; font-weight: 700; letter-spacing: .03em; }
-    .timeline-item h3 { margin-bottom: 3px; font-size: 1.06rem; font-weight: 650; line-height: 1.3; }
-    .timeline-item .role { margin-bottom: 8px; color: var(--accent); font-size: .79rem; font-weight: 650; }
-    .timeline-item p:last-child { margin-bottom: 0; color: var(--muted); font-size: .88rem; }
-    .side-panel { padding: 29px; border: 1px solid var(--line); background: var(--surface); align-self: start; }
-    .side-panel h3 { margin-bottom: 19px; font-size: 1.2rem; font-weight: 600; letter-spacing: -.03em; }
-    .education-item + .education-item { margin-top: 23px; padding-top: 23px; border-top: 1px solid var(--line); }
-    .education-item strong { display: block; font-size: .94rem; }
-    .education-item span { display: block; margin-top: 3px; color: var(--muted); font-size: .8rem; }
-    .education-item small { display: block; margin-top: 8px; color: var(--dim); font-size: .74rem; }
-    .award-panel { margin-top: 16px; }
-    .award-panel p { margin: 0 0 13px; color: var(--muted); font-size: .85rem; }
-    .award-panel p:last-child { margin-bottom: 0; }
-    .award-panel strong { color: var(--text); }
-
-    .publication-list { border-top: 1px solid var(--line); }
-    .publication { display: grid; grid-template-columns: 60px 1fr auto; align-items: start; gap: 20px; padding: 27px 0; border-bottom: 1px solid var(--line); }
-    .publication-number { color: var(--accent); font-size: .8rem; font-weight: 750; }
-    .publication h3 { margin-bottom: 7px; font-size: clamp(1rem, 1.8vw, 1.3rem); font-weight: 600; line-height: 1.4; }
-    .publication p { margin-bottom: 0; color: var(--muted); font-size: .82rem; }
-    .publication-type { white-space: nowrap; color: var(--dim); font-size: .76rem; }
-
-    .contact-section { background: linear-gradient(110deg, #16231a, #101614 60%, #0d1110); }
-    .contact-grid { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 35px; }
-    .contact-grid h2 { max-width: 740px; margin: 18px 0 19px; font-size: clamp(2.4rem, 5.2vw, 5rem); font-weight: 600; letter-spacing: -.07em; line-height: 1.05; }
-    .contact-grid p { max-width: 620px; margin-bottom: 0; color: var(--muted); }
-    .contact-methods { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 31px; }
-    .contact-methods a, .contact-methods span { display: inline-flex; align-items: center; min-height: 44px; padding: 9px 13px; border: 1px solid #485a45; color: var(--text); font-size: .83rem; }
-    .contact-methods a:hover { border-color: var(--accent); color: var(--accent); }
-    .contact-methods b { margin-right: 9px; color: var(--accent); font-weight: 650; }
-    .contact-symbol { display: grid; place-items: center; width: 94px; height: 94px; border: 1px solid #506a4c; border-radius: 50%; color: var(--accent); font-size: 3rem; line-height: 1; }
-    .site-footer { border-top: 1px solid var(--line); }
-    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; padding-block: 25px; color: var(--dim); font-size: .76rem; }
-
-    @media (max-width: 800px) {
-      .header-inner { padding-block: 20px; align-items: flex-start; flex-direction: column; gap: 18px; }
-      .navigation { justify-content: flex-start; gap: 12px 20px; }
-      .hero-grid { grid-template-columns: 1fr; }
-      .portrait-wrap { width: min(300px, 80%); margin-left: 18px; }
-      .about-grid, .two-column { grid-template-columns: 1fr; }
-      .project-grid { grid-template-columns: 1fr; }
-      .project-card.featured { grid-row: auto; }
-      .project-card { min-height: 280px; }
-      .section-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
-    }
-    @media (max-width: 560px) {
-      .container { width: min(var(--max-width), calc(100% - 36px)); }
-      .hero { padding-top: 70px; }
-      h1 { font-size: clamp(3.2rem, 15vw, 4.8rem); }
-      .fact-grid { grid-template-columns: 1fr; }
-      .fact, .fact + .fact { padding: 19px 0; border-left: 0; }
-      .fact + .fact { border-top: 1px solid var(--line); }
-      .timeline-item { grid-template-columns: 1fr; gap: 5px; }
-      .publication { grid-template-columns: 34px 1fr; gap: 12px; }
-      .publication-type { grid-column: 2; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .contact-symbol { display: none; }
+    .intro { display: grid; grid-template-columns: 190px 1fr; align-items: start; gap: 34px; }
+    .portrait { display: block; width: 190px; height: auto; border: 1px solid #fff; }
+    h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+    h1 { margin: -9px 0 10px; font-size: clamp(2.5rem, 5vw, 3.6rem); line-height: 1.2; }
+    .position { margin: 0 0 10px; font-size: 1.1rem; font-weight: bold; }
+    .affiliation { margin: 0 0 17px; }
+    .contact-details { margin: 0; padding: 0; list-style: none; }
+    .contact-details li { margin: 1px 0; }
+    .contact-details strong { display: inline-block; min-width: 78px; }
+    nav { display: flex; flex-wrap: wrap; gap: 5px 22px; margin: 28px 0 0; }
+    nav a { white-space: nowrap; }
+    main { margin-top: 34px; }
+    section { padding: 20px 0 24px; border-top: 1px solid #fff; scroll-margin-top: 18px; }
+    h2 { margin: 0 0 14px; font-size: 1.75rem; line-height: 1.3; }
+    p { margin: 0 0 13px; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { margin: 0; padding-left: 25px; }
+    li { padding-left: 3px; margin-bottom: 10px; }
+    li:last-child { margin-bottom: 0; }
+    .publication-list li { margin-bottom: 19px; }
+    .paper-title { font-weight: bold; }
+    .paper-detail { display: block; }
+    .entry-list { list-style: none; padding-left: 0; }
+    .entry-list li { padding-left: 0; margin-bottom: 17px; }
+    .entry-title { font-weight: bold; }
+    .entry-date { white-space: nowrap; }
+    .entry-list p { margin: 4px 0 0; }
+    footer { padding-top: 17px; border-top: 1px solid #fff; font-size: .9rem; }
+    @media (max-width: 620px) {
+      .page { width: min(100% - 32px, 980px); padding-top: 28px; }
+      .intro { grid-template-columns: 1fr; gap: 20px; }
+      .portrait { width: 170px; }
+      h1 { margin-top: 0; }
+      .entry-date { white-space: normal; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Shuheng Gao, back to top"><span class="brand-mark" aria-hidden="true">SG</span> Shuheng Gao</a>
-      <nav class="navigation" aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#research">Research</a>
-        <a href="#experience">Experience</a>
-        <a href="#publications">Publications</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="container hero-grid">
+  <div class="page">
+    <header>
+      <div class="intro">
+        <img class="portrait" src="data:image/jpeg;base64,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" width="259" height="364" alt="Portrait of Shuheng Gao">
         <div>
-          <span class="eyebrow">AI infrastructure · systems research</span>
-          <h1 id="hero-title">Building more <em>efficient</em> AI systems.</h1>
-          <p class="hero-copy">I’m Shuheng Gao, a computer science researcher focused on GPU memory systems, LLM inference, and cloud infrastructure. I work at the intersection of systems research and practical AI performance.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#research">Explore my work <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5"/></svg></a>
-            <a class="button button-secondary" href="#contact">Get in touch <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          </div>
-        </div>
-        <div class="portrait-wrap">
-          <div class="portrait">
-            <img src="portrait.jpg" alt="Portrait of Shuheng Gao" width="259" height="364">
-            <div class="portrait-caption">Shuheng Gao <span>·</span> Researcher &amp; Engineer</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="quick-facts" aria-label="Selected research results">
-      <div class="container fact-grid">
-        <div class="fact"><strong>~50%</strong><span>less GPU memory in a serverless LLM study</span></div>
-        <div class="fact"><strong>2×</strong><span>throughput in a resource-constrained setting</span></div>
-        <div class="fact"><strong>3.7×</strong><span>performance versus llama.cpp in a hybrid inference study</span></div>
-      </div>
-    </div>
-
-    <section class="content-section" id="about" aria-labelledby="about-title">
-      <div class="container">
-        <div class="section-heading">
-          <div><span class="section-kicker">01 / About</span><h2 id="about-title">Curious about the layers beneath AI.</h2></div>
-        </div>
-        <div class="about-grid">
-          <div>
-            <p class="lead">My research asks a simple question: how can we make AI systems use compute and memory more intelligently?</p>
-            <p class="about-text">I explore GPU memory sharing, inference pipelines, caching, and cluster scheduling. My work combines low-level CUDA and C++ engineering with distributed systems and model serving frameworks such as vLLM and SGLang.</p>
-            <div class="skill-list" aria-label="Areas of interest">
-              <span>LLM Inference</span><span>GPU Memory</span><span>CUDA / C++</span><span>vLLM / SGLang</span><span>Distributed Systems</span><span>Cloud Scheduling</span>
-            </div>
-          </div>
-          <ul class="detail-list" aria-label="Profile details">
-            <li><span>Currently</span><span>M.S. in Computer Science, University of Science and Technology of China</span></li>
-            <li><span>Previously</span><span>B.S. in Computer Science, Huazhong University of Science and Technology</span></li>
-            <li><span>Focus</span><span>Efficient AI inference and systems infrastructure</span></li>
+          <h1>Shuheng Gao</h1>
+          <p class="position">M.S. Student in Computer Science and Technology</p>
+          <p class="affiliation">University of Science and Technology of China</p>
+          <ul class="contact-details">
+            <li><strong>Research:</strong> AI infrastructure, LLM inference, GPU memory systems</li>
+            <li><strong>GitHub:</strong> <a href="https://github.com/aaaDrown">github.com/aaaDrown</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+8613635806059">+86 136 3580 6059</a></li>
+            <li><strong>WeChat:</strong> G166232</li>
           </ul>
         </div>
       </div>
-    </section>
+      <nav aria-label="Page sections">
+        <a href="#biography">Biography</a>
+        <a href="#interests">Research Interests</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Research Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+      </nav>
+    </header>
 
-    <section class="content-section" id="research" aria-labelledby="research-title">
-      <div class="container">
-        <div class="section-heading">
-          <div><span class="section-kicker">02 / Selected research</span><h2 id="research-title">Work that moves the system forward.</h2></div>
-          <p class="section-note">Projects spanning GPU memory, hybrid inference, and cloud resource scheduling.</p>
-        </div>
-        <div class="project-grid">
-          <article class="project-card featured">
-            <div class="card-top"><span>GPU systems / 2025</span><span class="card-number">01</span></div>
-            <h3>GPU memory deduplication for serverless LLM inference</h3>
-            <p>A driver-layer framework that shares GPU memory across instances and inference frameworks using CUDA virtual memory management, NVLink, and copy-on-write techniques.</p>
-            <p class="result"><strong>Result:</strong> Approximately 50% less GPU memory use and up to 2× throughput in a resource-constrained setting on four A100 GPUs.</p>
-            <div class="tags"><span>CUDA VMM</span><span>NVLink</span><span>Serverless LLM</span></div>
-          </article>
-          <article class="project-card">
-            <div class="card-top"><span>Inference systems / 2024–2025</span><span class="card-number">02</span></div>
-            <h3>Hybrid inference for limited resources</h3>
-            <p>A hardware-aware prefill pipeline and CPU–GPU decode strategy built on llama.cpp to make efficient use of constrained hardware.</p>
-            <p class="result"><strong>Result:</strong> Up to 3.7× end-to-end performance versus llama.cpp across the evaluated input lengths.</p>
-            <div class="tags"><span>Prefill / Decode</span><span>CPU–GPU</span></div>
-          </article>
-          <article class="project-card">
-            <div class="card-top"><span>Cloud storage / 2023–2024</span><span class="card-number">03</span></div>
-            <h3>Cloud disk workload prediction &amp; scheduling</h3>
-            <p>Analyzed write traffic patterns and designed workload-aware scheduling strategies for cloud block storage, including bursty batch workloads.</p>
-            <div class="tags"><span>Workload Prediction</span><span>Scheduling</span></div>
-          </article>
-        </div>
-      </div>
-    </section>
+    <main id="main">
+      <section id="biography" aria-labelledby="biography-title">
+        <h2 id="biography-title">Biography</h2>
+        <p>I am a master's student in Computer Science and Technology at the University of Science and Technology of China. I received my bachelor's degree from Huazhong University of Science and Technology in 2025, where I studied in the Computer Science Excellence Program.</p>
+        <p>My research focuses on efficient AI infrastructure. I work on GPU memory management, LLM inference systems, and scheduling for cloud services, with an interest in making resource-intensive workloads more practical to deploy.</p>
+      </section>
 
-    <section class="content-section" id="experience" aria-labelledby="experience-title">
-      <div class="container">
-        <div class="section-heading">
-          <div><span class="section-kicker">03 / Background</span><h2 id="experience-title">Where I’ve learned and built.</h2></div>
-        </div>
-        <div class="two-column">
-          <div>
-            <div class="timeline" aria-label="Experience">
-              <article class="timeline-item">
-                <span class="timeline-date">Feb – Jun 2026</span>
-                <div><h3>China Telecom Research Institute</h3><p class="role">AI Infrastructure Research Intern</p><p>Explored approximate caching for multimodal inference and latent reuse for video generation.</p></div>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">Oct – Dec 2024</span>
-                <div><h3>Baidu</h3><p class="role">Engineering Intern</p><p>Built streaming AI bot experiences and lightweight observability tools.</p></div>
-              </article>
-              <article class="timeline-item">
-                <span class="timeline-date">Apr – Sep 2024</span>
-                <div><h3>Tencent</h3><p class="role">Engineering Intern</p><p>Worked on multimodal content moderation analytics and policy tooling.</p></div>
-              </article>
-            </div>
-          </div>
-          <div>
-            <div class="side-panel">
-              <h3>Education</h3>
-              <div class="education-item"><strong>University of Science and Technology of China</strong><span>M.S. in Computer Science and Technology</span><small>2025 – 2028</small></div>
-              <div class="education-item"><strong>Huazhong University of Science and Technology</strong><span>B.S. in Computer Science · Excellence Program</span><small>2021 – 2025 · GPA 4.6 · Rank 2/30</small></div>
-            </div>
-            <div class="side-panel award-panel">
-              <h3>Selected honors</h3>
-              <p><strong>First Prize</strong> · Huawei ICT Competition, Cloud Computing Track, National Final (2024)</p>
-              <p><strong>First Prize</strong> · China Undergraduate Mathematical Contest in Modeling, Hubei (2022)</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      <section id="interests" aria-labelledby="interests-title">
+        <h2 id="interests-title">Research Interests</h2>
+        <ul>
+          <li>Efficient LLM and multimodal inference</li>
+          <li>GPU memory management and sharing</li>
+          <li>Serverless model serving and cluster scheduling</li>
+          <li>Cloud storage systems</li>
+        </ul>
+      </section>
 
-    <section class="content-section" id="publications" aria-labelledby="publications-title">
-      <div class="container">
-        <div class="section-heading">
-          <div><span class="section-kicker">04 / Publications</span><h2 id="publications-title">Research in writing.</h2></div>
-        </div>
-        <div class="publication-list">
-          <article class="publication"><span class="publication-number">01</span><div><h3>gKSM: GPU Memory Deduplication at Driver Layer for Serverless LLM Inference</h3><p>First author · Submitted to ATC</p></div><span class="publication-type">Manuscript</span></article>
-          <article class="publication"><span class="publication-number">02</span><div><h3>VDMig: An Adaptive Virtual Disk Migration Scheme for Cloud Block Storage System</h3><p>Second author · ICCD</p></div><span class="publication-type">Conference paper</span></article>
-        </div>
-      </div>
-    </section>
+      <section id="publications" aria-labelledby="publications-title">
+        <h2 id="publications-title">Selected Publications</h2>
+        <ol class="publication-list">
+          <li>
+            <span class="paper-title">gKSM: GPU Memory Deduplication at Driver Layer for Serverless LLM Inference.</span>
+            <span class="paper-detail">USENIX Annual Technical Conference (ATC), accepted. First author.</span>
+          </li>
+          <li>
+            <span class="paper-title">Token Write Amplification in LLM-Mediated State Stores.</span>
+            <span class="paper-detail">Second author.</span>
+          </li>
+          <li>
+            <span class="paper-title">VDMig: An Adaptive Virtual Disk Migration Scheme for Cloud Block Storage System.</span>
+            <span class="paper-detail">International Conference on Computer Design (ICCD). Second author.</span>
+          </li>
+        </ol>
+      </section>
 
-    <section class="content-section contact-section" id="contact" aria-labelledby="contact-title">
-      <div class="container contact-grid">
-        <div>
-          <span class="section-kicker">05 / Contact</span>
-          <h2 id="contact-title">Let’s talk about better AI systems.</h2>
-          <p>I’m interested in systems research, efficient inference, and thoughtful engineering collaborations.</p>
-          <div class="contact-methods">
-            <a href="tel:+8613635806059"><b>Phone</b> +86 136 3580 6059</a>
-            <span><b>WeChat</b> G166232</span>
-          </div>
-        </div>
-        <div class="contact-symbol" aria-hidden="true">↗</div>
-      </div>
-    </section>
-  </main>
+      <section id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">Research Projects</h2>
+        <ul class="entry-list">
+          <li>
+            <span class="entry-title">GPU memory deduplication for serverless LLM inference</span> <span class="entry-date">(2025)</span>
+            <p>Designed a driver-layer framework for sharing GPU memory across inference instances using CUDA virtual memory management, NVLink, and copy-on-write. In a four-A100 evaluation, it reduced GPU memory use by about 50% and doubled throughput in a resource-constrained setting.</p>
+          </li>
+          <li>
+            <span class="entry-title">Hybrid inference for resource-constrained systems</span> <span class="entry-date">(2024–2025)</span>
+            <p>Built a hardware-aware prefill pipeline and CPU–GPU decode strategy on llama.cpp. End-to-end performance improved by up to 3.7 times compared with llama.cpp in the evaluated settings.</p>
+          </li>
+          <li>
+            <span class="entry-title">Cloud disk workload prediction and scheduling</span> <span class="entry-date">(2023–2024)</span>
+            <p>Studied cloud block storage write patterns and developed workload-aware scheduling strategies for periodic and bursty traffic.</p>
+          </li>
+        </ul>
+      </section>
 
-  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Shuheng Gao</span><span>Built with curiosity for systems.</span></div></footer>
+      <section id="experience" aria-labelledby="experience-title">
+        <h2 id="experience-title">Experience</h2>
+        <ul class="entry-list">
+          <li><span class="entry-title">China Telecom Research Institute</span> <span class="entry-date">(Feb–Jun 2026)</span><p>AI infrastructure research on approximate caching for multimodal inference and video generation.</p></li>
+          <li><span class="entry-title">Baidu</span> <span class="entry-date">(Oct–Dec 2024)</span><p>Developed streaming AI bot features and observability tools.</p></li>
+          <li><span class="entry-title">Tencent</span> <span class="entry-date">(Apr–Sep 2024)</span><p>Worked on multimodal content moderation analytics and policy tools.</p></li>
+        </ul>
+      </section>
+
+      <section id="education" aria-labelledby="education-title">
+        <h2 id="education-title">Education</h2>
+        <ul class="entry-list">
+          <li><span class="entry-title">University of Science and Technology of China</span> <span class="entry-date">(2025–2028)</span><p>M.S. in Computer Science and Technology.</p></li>
+          <li><span class="entry-title">Huazhong University of Science and Technology</span> <span class="entry-date">(2021–2025)</span><p>B.S. in Computer Science, Excellence Program. GPA: 4.6; rank: 2/30.</p></li>
+        </ul>
+      </section>
+
+      <section id="honors" aria-labelledby="honors-title">
+        <h2 id="honors-title">Honors</h2>
+        <ul>
+          <li>National First Prize, Huawei ICT Competition, Cloud Computing Track (2024)</li>
+          <li>First Prize in Hubei, China Undergraduate Mathematical Contest in Modeling (2022)</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>Shuheng Gao · Last updated October 2026</footer>
+  </div>
 </body>
 </html>
