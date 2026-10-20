@@ -60,6 +60,7 @@
     .entry-date { white-space: nowrap; }
     .entry-list p { margin: 2px 0 0; }
     footer { padding-top: 17px; border-top: 1px solid #fff; font-size: .9rem; }
+    #busuanzi_container_page_pv { white-space: nowrap; }
     @media (max-width: 620px) {
       .page { width: min(100% - 32px, 980px); padding-top: 28px; }
       .intro { grid-template-columns: 1fr; gap: 20px; }
@@ -160,7 +161,8 @@
       </section>
     </main>
 
-    <footer>Shuheng Gao · Last updated October 2026</footer>
+    <footer>Shuheng Gao · Last updated October 2026<span id="busuanzi_container_page_pv" style="display: none;"> · Views: <span id="busuanzi_value_page_pv"></span></span></footer>
   </div>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html> 
